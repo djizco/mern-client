@@ -7,11 +7,14 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const resolve = dir => path.join(__dirname, '../', dir);
 
 const env = process.env.NODE_ENV || 'development';
+const baseURL = process.env.BASE_URL || '';
+
 const isDev = env === 'development';
 
 const WebpackDefinePluginConfig = new webpack.DefinePlugin({
   'process.env': {
     NODE_ENV: JSON.stringify(env),
+    BASE_URL: JSON.stringify(baseURL),
   },
 });
 
@@ -104,6 +107,17 @@ module.exports = {
               pngquant: { quality: [0.75, 0.90], speed: 3 },
               mozjpeg: { progressive: true },
               gifsicle: { interlaced: false },
+            },
+          },
+        ],
+      },
+      {
+        test: /favicon.ico$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
             },
           },
         ],
