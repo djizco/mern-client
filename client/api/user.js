@@ -1,21 +1,24 @@
 import request from 'superagent';
 import { handleSuccess, handleError } from '_utils/api';
 
-const baseURL = process.env.BASE_URL || '';
+const apiURL = process.env.API_URL || '';
 
 export const getUser = () =>
-  request.get(`${baseURL}/api/user`)
+  request.get(`${apiURL}/api/user`)
+    .withCredentials()
     .then(handleSuccess)
     .catch(handleError);
 
 export const putUser = info =>
-  request.put(`${baseURL}/api/user`)
+  request.put(`${apiURL}/api/user`)
+    .withCredentials()
     .send(info)
     .then(handleSuccess)
     .catch(handleError);
 
 export const putUserPassword = passwordInfo =>
-  request.put(`${baseURL}/api/user/password`)
+  request.put(`${apiURL}/api/user/password`)
+    .withCredentials()
     .send(passwordInfo)
     .then(handleSuccess)
     .catch(handleError);
