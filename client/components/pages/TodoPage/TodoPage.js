@@ -17,7 +17,8 @@ export default function TodoPage() {
       dispatch(push('/login'));
     } else {
       dispatch(attemptGetTodos())
-        .then(() => setLoading(false));
+        .then(() => setLoading(false))
+        .catch(R.identity);
     }
   }, []);
 
