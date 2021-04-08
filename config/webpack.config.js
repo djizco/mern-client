@@ -7,14 +7,14 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const resolve = dir => path.join(__dirname, '../', dir);
 
 const env = process.env.NODE_ENV || 'development';
-const baseURL = process.env.API_URL || '';
+const apiURL = process.env.API_URL || '';
 
 const isDev = env === 'development';
 
 const WebpackDefinePluginConfig = new webpack.DefinePlugin({
   'process.env': {
     NODE_ENV: JSON.stringify(env),
-    API_URL: JSON.stringify(baseURL),
+    API_URL: JSON.stringify(apiURL),
   },
 });
 
