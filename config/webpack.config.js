@@ -101,15 +101,6 @@ module.exports = {
               name: 'images/[name].[ext]',
             },
           },
-          {
-            loader: 'image-webpack-loader',
-            options: {
-              optipng: { optimizationLevel: 7 },
-              pngquant: { quality: [0.75, 0.90], speed: 3 },
-              mozjpeg: { progressive: true },
-              gifsicle: { interlaced: false },
-            },
-          },
         ],
       },
       {
