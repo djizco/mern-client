@@ -11,7 +11,8 @@
     "test": "./scripts/test.sh",
     "test:verbose": "./scripts/test-verbose.sh",
     "test:coverage": "./scripts/test-coverage.sh",
-    "test:watch": "./scripts/test-watch.sh"
+    "test:watch": "./scripts/test-watch.sh",
+    "patch:bulma": "./scripts/bulma-patch.sh"
   },
   "repository": {
     "type": "git",
