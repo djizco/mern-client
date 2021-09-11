@@ -32,15 +32,13 @@ const CleanWebpackPluginConfig = new CleanWebpackPlugin({
 
 module.exports = {
   devServer: {
-    contentBase: resolve('dist'),
     historyApiFallback: true,
     hot: true,
-    inline: true,
+    open: true,
     port: 8080,
     proxy: {
       '/api': 'http://localhost:3000',
     },
-    open: true,
   },
   devtool: 'source-map',
   entry: [
