@@ -36,7 +36,7 @@ npm run lint
 npm run lint:fix
 npm run test:coverage
 npm run test:verbose
-npm run test:watcc
+npm run test:watch
 ```
 
 ## Setup Instructions

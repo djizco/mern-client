@@ -2,7 +2,6 @@ const webpack = require('webpack');
 const path              = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const resolve = dir => path.join(__dirname, '../', dir);
 
@@ -25,20 +24,18 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
   inject: 'body',
 });
 
-const CleanWebpackPluginConfig = new CleanWebpackPlugin({
-  verbose: true,
-  cleanStaleWebpackAssets: false,
-});
-
 module.exports = {
   devServer: {
+    static: {
+      directory: resolve('dist'),
+    },
+    proxy: {
+      '/api': 'http://localhost:3000',
+    },
     historyApiFallback: true,
     hot: true,
     open: true,
     port: 8080,
-    proxy: {
-      '/api': 'http://localhost:3000',
-    },
   },
   devtool: 'source-map',
   entry: [
@@ -47,9 +44,10 @@ module.exports = {
     resolve('client/index.js'),
   ],
   output: {
-    filename: isDev ? '[name].js' : '[name].[hash].js',
+    filename: isDev ? '[name].js' : '[name].[fullhash].js',
     path: resolve('dist'),
     publicPath: '/',
+    clean: true,
   },
   resolve: {
     alias: {
@@ -92,40 +90,30 @@ module.exports = {
       },
       {
         test: /\.(jpe?g|png|gif)$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: 'images/[name].[ext]',
-            },
-          },
-        ],
-      },
-      {
-        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: 'url-loader',
-        options: {
-          name: 'fonts/[name].[ext]',
-          limit: 8192,
-          mimetype: 'application/font-woff',
+        type: 'asset/resource',
+        generator: {
+          filename: 'images/[name][ext]'
         },
       },
       {
-        test: /\.svg(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: 'file-loader',
-        options: { name: 'icons/[name].[ext]' },
+        test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+        type: 'asset/resource',
+        generator: {
+          filename: 'icons/[name][ext]'
+        },
       },
       {
-        test: /\.(ttf|eot)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: 'file-loader',
-        options: { name: 'fonts/[name].[ext]' },
-      },
+        test: /\.(woff(2)|ttf|eot|otf)?(\?v=\d+\.\d+\.\d+)?$/,
+        type: 'asset/resource',
+        generator: {
+          filename: 'fonts/[name][ext]'
+        },
+      }
     ],
   },
   plugins: [
     HtmlWebpackPluginConfig,
     WebpackDefinePluginConfig,
-    CleanWebpackPluginConfig,
   ],
   performance: {
     hints: false,
