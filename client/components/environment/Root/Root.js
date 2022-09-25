@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
-import { ConnectedRouter } from 'connected-react-router';
+import { HistoryRouter as Router } from 'redux-first-history/rr6';
 
 import Main from '_environment/Main';
 
 export default function Root({ history, store }) {
   return (
     <Provider store={store}>
-      <ConnectedRouter history={history}>
+      <Router history={history}>
         <Main />
-      </ConnectedRouter>
+      </Router>
     </Provider>
   );
 }

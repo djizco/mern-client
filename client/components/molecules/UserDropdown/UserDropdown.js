@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import R from 'ramda';
 
+import Box from 'react-bulma-companion/lib/Box';
+
 import { attemptLogout } from '_thunks/auth';
 
 export default function UserDropdown({ open, closeDropdown }) {
@@ -12,10 +14,16 @@ export default function UserDropdown({ open, closeDropdown }) {
 
   const dropdown = useRef(null);
 
-  const dropdownListener = e =>
-    !e.path.includes(dropdown.current) && open && closeDropdown();
-
   useEffect(() => {
+    let init = false;
+
+    const dropdownListener = e => {
+      if (!e.composedPath().includes(dropdown.current) && open && init) {
+        closeDropdown();
+      }
+      init = true;
+    };
+
     window.addEventListener('click', dropdownListener);
     window.addEventListener('touchend', dropdownListener);
 
@@ -23,7 +31,7 @@ export default function UserDropdown({ open, closeDropdown }) {
       window.removeEventListener('click', dropdownListener);
       window.removeEventListener('touchend', dropdownListener);
     };
-  }, [open]);
+  }, [open, closeDropdown]);
 
   const logout = () => {
     closeDropdown();
@@ -32,7 +40,7 @@ export default function UserDropdown({ open, closeDropdown }) {
   };
 
   return open && (
-    <div className="dropdown box" ref={dropdown}>
+    <Box className="dropdown" ref={dropdown}>
       <ul className="dropdown-list">
         <li className="dropdown-header">
           {user.usernameCase}
@@ -55,7 +63,7 @@ export default function UserDropdown({ open, closeDropdown }) {
           </a>
         </li>
       </ul>
-    </div>
+    </Box>
   );
 }
 

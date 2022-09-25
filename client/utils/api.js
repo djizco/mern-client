@@ -1,5 +1,5 @@
-import { push } from 'connected-react-router';
-import { store as RNC } from 'react-notifications-component';
+import { push } from 'redux-first-history';
+import { Store as RNC } from 'react-notifications-component';
 
 import { logout } from '_actions/user';
 
@@ -14,15 +14,15 @@ export const handleError = error => {
   }
 };
 
-export const dispatchError = dispatch => error => {
-  if (error.status === 401) {
+export const dispatchError = dispatch => res => {
+  if (res.status === 401) {
     dispatch(logout());
     dispatch(push('/login'));
   }
 
   RNC.addNotification({
-    title: `Error: ${error.status}`,
-    message: error.text,
+    title: `Error: ${res.status}`,
+    message: res.body.message,
     type: 'danger',
     container: 'top-right',
     animationIn: ['animated', 'fadeInRight'],
@@ -32,5 +32,5 @@ export const dispatchError = dispatch => error => {
     },
   });
 
-  throw error;
+  throw res;
 };

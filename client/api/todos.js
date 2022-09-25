@@ -1,38 +1,31 @@
 import request from 'superagent';
 import { handleSuccess, handleError } from '_utils/api';
 
-const apiURL = process.env.API_URL || '';
-
 export const postTodo = info =>
-  request.post(`${apiURL}/api/todos`)
-    .withCredentials()
+  request.post('/api/todos')
     .send(info)
     .then(handleSuccess)
     .catch(handleError);
 
 export const getTodos = () =>
-  request.get(`${apiURL}/api/todos`)
-    .withCredentials()
+  request.get('/api/todos')
     .then(handleSuccess)
     .catch(handleError);
 
 export const putToggleCompleteTodo = info =>
-  request.put(`${apiURL}/api/todos/complete`)
-    .withCredentials()
+  request.put('/api/todos/complete')
     .send(info)
     .then(handleSuccess)
     .catch(handleError);
 
 export const putTodo = info =>
-  request.put(`${apiURL}/api/todos`)
-    .withCredentials()
+  request.put('/api/todos')
     .send(info)
     .then(handleSuccess)
     .catch(handleError);
 
 export const deleteTodo = info =>
-  request.delete(`${apiURL}/api/todos`)
-    .withCredentials()
+  request.delete('/api/todos')
     .send(info)
     .then(handleSuccess)
     .catch(handleError);

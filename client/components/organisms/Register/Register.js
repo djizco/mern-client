@@ -5,7 +5,7 @@ import R from 'ramda';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons/faCheck';
-import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons/faExclamationTriangle';
+import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons/faTriangleExclamation';
 
 import Box from 'react-bulma-companion/lib/Box';
 import Button from 'react-bulma-companion/lib/Button';
@@ -21,6 +21,8 @@ import useKeyPress from '_hooks/useKeyPress';
 import { postCheckUsername } from '_api/users';
 import { validateUsername, validatePassword } from '_utils/validation';
 import { attemptRegister } from '_thunks/auth';
+
+import styles from './styles.module.css';
 
 export default function Register() {
   const dispatch = useDispatch();
@@ -88,7 +90,7 @@ export default function Register() {
   useKeyPress('Enter', register);
 
   return (
-    <Box className="register">
+    <Box className={styles.root}>
       <Title size="3">
         Sign Up
       </Title>
@@ -118,7 +120,7 @@ export default function Register() {
               color={usernameAvailable ? 'success' : 'danger'}
             >
               <FontAwesomeIcon
-                icon={usernameAvailable ? faCheck : faExclamationTriangle}
+                icon={usernameAvailable ? faCheck : faTriangleExclamation}
               />
             </Icon>
           )}
@@ -149,7 +151,7 @@ export default function Register() {
               color={passwordValid ? 'success' : 'danger'}
             >
               <FontAwesomeIcon
-                icon={passwordValid ? faCheck : faExclamationTriangle}
+                icon={passwordValid ? faCheck : faTriangleExclamation}
               />
             </Icon>
           )}

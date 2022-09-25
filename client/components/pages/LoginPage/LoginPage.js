@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { push } from 'connected-react-router';
+import { push } from 'redux-first-history';
 import R from 'ramda';
 
-import LoginSection from '_templates/LoginSection';
+import Section from 'react-bulma-companion/lib/Section';
+
+import Login from '_organisms/Login';
 
 export default function LoginPage() {
   const dispatch = useDispatch();
@@ -13,11 +15,11 @@ export default function LoginPage() {
     if (!R.isEmpty(user)) {
       dispatch(push('/home'));
     }
-  }, []);
+  }, [dispatch, user]);
 
   return (
-    <div className="login-page page">
-      <LoginSection />
-    </div>
+    <Section>
+      <Login />
+    </Section>
   );
 }

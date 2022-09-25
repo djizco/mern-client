@@ -5,6 +5,7 @@ module.exports = {
   moduleFileExtensions: ['js', 'jsx'],
   moduleDirectories: ['node_modules'],
   moduleNameMapper: {
+    '^.+\\.module\\.(css|sass|scss)$': 'identity-obj-proxy',
     '^_client(.*)$': '<rootDir>/client/$1',
     '^_assets(.*)$': '<rootDir>/client/assets/$1',
     '^_styles(.*)$': '<rootDir>/client/styles/$1',
@@ -28,7 +29,6 @@ module.exports = {
   ],
   testEnvironment: 'jsdom',
   testMatch: [path.join(__dirname, '../../**/?(*.)+(spec|test).[tj]s?(x)')],
-  testURL: 'http://localhost',
   transform: {
     '^.+\\.[t|j]sx?$': 'babel-jest',
     // eslint-disable-next-line

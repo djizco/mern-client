@@ -1,24 +1,19 @@
 import request from 'superagent';
 import { handleSuccess, handleError } from '_utils/api';
 
-const apiURL = process.env.API_URL || '';
-
 export const postRegister = user =>
-  request.post(`${apiURL}/api/auth/register`)
-    .withCredentials()
+  request.post('/api/auth/register')
     .send(user)
     .then(handleSuccess)
     .catch(handleError);
 
 export const postLogin = user =>
-  request.post(`${apiURL}/api/auth/login`)
-    .withCredentials()
+  request.post('/api/auth/login')
     .send(user)
     .then(handleSuccess)
     .catch(handleError);
 
 export const postLogout = () =>
-  request.post(`${apiURL}/api/auth/logout`)
-    .withCredentials()
+  request.post('/api/auth/logout')
     .then(handleSuccess)
     .catch(handleError);
