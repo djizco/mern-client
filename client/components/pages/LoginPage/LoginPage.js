@@ -1,15 +1,17 @@
 import React, { useEffect } from 'react';
+
+import R from 'ramda';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { push } from 'redux-first-history';
-import R from 'ramda';
 
 import Section from 'react-bulma-companion/lib/Section';
 
-import Login from '_components/organisms/Login';
+import LoginPanel from './LoginPanel';
 
 export default function LoginPage() {
   const dispatch = useDispatch();
-  const { user } = useSelector(R.pick(['user']));
+  const user = useSelector(state => state.user);
 
   useEffect(() => {
     if (!R.isEmpty(user)) {
@@ -18,8 +20,8 @@ export default function LoginPage() {
   }, [dispatch, user]);
 
   return (
-    <Section>
-      <Login />
+    <Section display="flex" justifyContent="center">
+      <LoginPanel />
     </Section>
   );
 }

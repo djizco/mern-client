@@ -1,21 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { push } from 'redux-first-history';
+import React, { useEffect, useState } from 'react';
+
 import R from 'ramda';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { push } from 'redux-first-history';
+
+import Column from 'react-bulma-companion/lib/Column';
+import Columns from 'react-bulma-companion/lib/Columns';
 import Section from 'react-bulma-companion/lib/Section';
 import Title from 'react-bulma-companion/lib/Title';
-import Columns from 'react-bulma-companion/lib/Columns';
-import Column from 'react-bulma-companion/lib/Column';
 
 import { attemptGetTodos } from '_store/thunks/todos';
 
-import AddTodo from '_components/molecules/AddTodo';
-import TodoList from '_components/organisms/TodoList';
+import AddTodo from './AddTodo';
+import TodoList from './TodoList';
 
 export default function TodoPage() {
   const dispatch = useDispatch();
-  const { user } = useSelector(R.pick(['user']));
+  const user = useSelector(state => state.user);
 
   const [loading, setLoading] = useState(true);
 
@@ -23,9 +25,11 @@ export default function TodoPage() {
     if (R.isEmpty(user)) {
       dispatch(push('/login'));
     } else {
+      setLoading(true);
+
       dispatch(attemptGetTodos())
         .catch(R.identity)
-        .then(() => setLoading(false));
+        .finally(() => setLoading(false));
     }
   }, [dispatch, user]);
 

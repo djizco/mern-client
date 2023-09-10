@@ -1,15 +1,21 @@
 import React from 'react';
+
 import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
 import { HistoryRouter as Router } from 'redux-first-history/rr6';
 
+import { ThemeProvider } from '@mui/material/styles';
+
+import theme from '_client/styles/js/theme';
 import Main from '_components/environment/Main';
 
 export default function Root({ history, store }) {
   return (
     <Provider store={store}>
       <Router history={history}>
-        <Main />
+        <ThemeProvider theme={theme}>
+          <Main />
+        </ThemeProvider>
       </Router>
     </Provider>
   );

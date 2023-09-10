@@ -1,17 +1,17 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { push } from 'redux-first-history';
+
 import R from 'ramda';
 
-import Section from 'react-bulma-companion/lib/Section';
-import Container from 'react-bulma-companion/lib/Container';
-import Title from 'react-bulma-companion/lib/Title';
+import { useDispatch, useSelector } from 'react-redux';
+import { push } from 'redux-first-history';
 
-import styles from './styles.module.css';
+import Container from 'react-bulma-companion/lib/Container';
+import Section from 'react-bulma-companion/lib/Section';
+import Title from 'react-bulma-companion/lib/Title';
 
 export default function WelcomePage() {
   const dispatch = useDispatch();
-  const { user } = useSelector(R.pick(['user']));
+  const user = useSelector(state => state.user);
 
   useEffect(() => {
     if (!R.isEmpty(user)) {
@@ -20,14 +20,12 @@ export default function WelcomePage() {
   }, [dispatch, user]);
 
   return (
-    <div className={styles.root}>
-      <Section>
-        <Container>
-          <Title size="1">
-            Welcome Page!
-          </Title>
-        </Container>
-      </Section>
-    </div>
+    <Section>
+      <Container>
+        <Title size="1" textAlign="center">
+          Welcome Page!
+        </Title>
+      </Container>
+    </Section>
   );
 }

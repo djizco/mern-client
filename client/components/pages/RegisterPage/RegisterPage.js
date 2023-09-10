@@ -1,15 +1,17 @@
 import React, { useEffect } from 'react';
+
+import R from 'ramda';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { push } from 'redux-first-history';
-import R from 'ramda';
 
 import Section from 'react-bulma-companion/lib/Section';
 
-import Register from '_components/organisms/Register';
+import RegisterPanel from './RegisterPanel';
 
 export default function RegisterPage() {
   const dispatch = useDispatch();
-  const { user } = useSelector(R.pick(['user']));
+  const user = useSelector(state => state.user);
 
   useEffect(() => {
     if (!R.isEmpty(user)) {
@@ -18,10 +20,8 @@ export default function RegisterPage() {
   }, [dispatch, user]);
 
   return (
-    <div>
-      <Section>
-        <Register />
-      </Section>
-    </div>
+    <Section display="flex" justifyContent="center">
+      <RegisterPanel />
+    </Section>
   );
 }

@@ -1,4 +1,6 @@
 import React from 'react';
+
+// eslint-disable-next-line react/no-deprecated
 import { render } from 'react-dom';
 // import { createRoot } from 'react-dom/client';
 
@@ -6,10 +8,13 @@ import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import 'react-notifications-component/dist/theme.css';
 import 'animate.css/animate.compat.css';
-
-import { store, history } from '_store';
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
 
 import Root from '_components/environment/Root';
+import { history, store } from '_store';
 
 render(
   <Root history={history} store={store} />,
