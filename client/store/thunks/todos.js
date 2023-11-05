@@ -1,6 +1,3 @@
-import { snakeToCamelCase } from 'json-style-converter/es5';
-import R from 'ramda';
-
 import { deleteTodo, getTodos, postTodo, putTodo, putToggleCompleteTodo } from '_api/todos';
 
 import { addTodo, removeTodo, setTodos, toggleCompleteTodo, updateTodo } from '_store/actions/todos';
@@ -10,10 +7,7 @@ import { dispatchError } from '_utils/api';
 export const attemptGetTodos = () => dispatch =>
   getTodos()
     .then(data => {
-      const todos = R.map(todo =>
-        R.omit(['Id'], R.assoc('id', todo._id, snakeToCamelCase(todo))), data.todos);
-
-      dispatch(setTodos(todos));
+      dispatch(setTodos(data.todos));
       return data.todos;
     })
     .catch(dispatchError(dispatch));
@@ -21,9 +15,7 @@ export const attemptGetTodos = () => dispatch =>
 export const attemptAddTodo = text => dispatch =>
   postTodo({ text })
     .then(data => {
-      const todo = R.omit(['Id'], R.assoc('id', data.todo._id, snakeToCamelCase(data.todo)));
-
-      dispatch(addTodo(todo));
+      dispatch(addTodo(data.todo));
       return data.user;
     })
     .catch(dispatchError(dispatch));
@@ -39,7 +31,7 @@ export const attemptToggleCompleteTodo = id => dispatch =>
 export const attemptUpdateTodo = (id, text) => dispatch =>
   putTodo({ id, text })
     .then(data => {
-      dispatch(updateTodo({ id, text, updatedAt: data.todo.updated_at }));
+      dispatch(updateTodo({ id, text, updatedAt: data.todo.updatedAt }));
       return data;
     })
     .catch(dispatchError(dispatch));
